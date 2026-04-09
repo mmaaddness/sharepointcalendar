@@ -1,245 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FY26 Key Business Dates</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: "Segoe UI", Arial, sans-serif; background: #f7f7f7; }
-
-  .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px 10px; background: #fff; border-bottom: 1px solid #eee; flex-wrap: wrap; gap: 8px; }
-  .nav-title { font-size: 15px; font-weight: 700; color: #1a1a1a; }
-  .nav-sub { font-size: 11px; color: #888; margin-top: 1px; }
-  .nav-btns { display: flex; gap: 8px; }
-  .nav-btn { background: #eb1000; color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; text-decoration: none; line-height: 1; }
-  .nav-btn:hover { background: #c50d00; }
-
-  .quarter { display: none; }
-  .quarter.active { display: grid; grid-template-columns: repeat(3, 1fr); }
-
-  .month { background: #fff; display: flex; flex-direction: column; border-right: 1px solid #eee; }
-  .month:last-child { border-right: none; }
-  .banner { height: 8px; background: #eb1000; }
-  .month-name { font-size: 28px; font-weight: 800; color: #1a1a1a; text-align: center; padding: 16px 0 10px; }
-
-  .cal-wrap { padding: 0 10px; }
-  table.cal { width: 100%; border-collapse: collapse; table-layout: fixed; }
-  table.cal thead th { font-size: 11px; font-weight: 700; color: #fff; background: #eb1000; text-align: center; padding: 5px 0; width: 20%; }
-  table.cal thead th:first-child { border-radius: 20px 0 0 20px; }
-  table.cal thead th:last-child { border-radius: 0 20px 20px 0; }
-  table.cal tbody td { text-align: center; padding: 3px 2px; vertical-align: middle; }
-
-  .day { width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; color: #333; margin: auto; font-weight: 400; }
-  .day.faded { color: #ccc; }
-  .ev-holiday   { background: #C6C6C6; color: #fff; font-weight: 700; }
-  .ev-earnings  { background: #27BB36; color: #fff; font-weight: 700; }
-  .ev-bod       { background: #eb1000; color: #fff; font-weight: 700; }
-  .ev-qfr       { background: #7B5EA7; color: #fff; font-weight: 700; }
-  .ev-qbr       { background: #33C5E8; color: #fff; font-weight: 700; }
-  .ev-corp      { background: #F69500; color: #fff; font-weight: 700; }
-  .ev-shutdown  { background: #C6C6C6; color: #fff; font-weight: 700; }
-  .ev-allhands  { background: #E8609A; color: #fff; font-weight: 700; }
-  .ev-bizreview { background: #F0D000; color: #fff; font-weight: 700; }
-
-  .events { padding: 12px 14px 16px; min-height: 80px; border-top: 1px solid #f0f0f0; margin-top: 6px; }
-  .event { font-size: 11px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
-  .event-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-  .event-text { color: #444; }
-  .event-text strong { color: #333; font-weight: 700; }
-
-  .footer { padding: 12px 24px 16px; background: #fff; border-top: 1px solid #eee; }
-  .legend { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-bottom: 8px; }
-  .li { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #555; }
-  .ls { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
-  .note { font-size: 12px; color: #888; font-style: italic; }
-
-  @media (max-width: 700px) { .quarter.active { grid-template-columns: 1fr; } }
+*{box-sizing:border-box;margin:0;padding:0;}
+.slide{width:100%;aspect-ratio:16/9;background:#ffffff;position:relative;overflow:hidden;font-family:var(--font-sans,sans-serif);}
+.inner{position:relative;z-index:2;width:100%;height:100%;display:grid;grid-template-rows:auto auto 1fr;padding:1% 1.4%;}
+.top-bar{display:flex;align-items:center;padding-bottom:.3%;}
+.main-title{font-size:1.5vw;font-weight:700;color:#eb1000;letter-spacing:-.02em;white-space:nowrap;}
+.legend{display:grid;grid-template-columns:repeat(8,1fr);align-items:center;padding-bottom:.5%;width:100%;border-bottom:1.5px solid #000;margin-bottom:.5%;}
+.li{display:flex;align-items:center;gap:.25em;font-size:.58vw;color:#000;white-space:nowrap;}
+.ld{width:.55vw;height:.55vw;min-width:5px;min-height:5px;border-radius:2px;}
+.quarters{display:grid;grid-template-rows:repeat(4,1fr);gap:.6%;height:100%;}
+.q-row{display:grid;grid-template-columns:1.8% 1fr 1fr 1fr;gap:1%;min-height:0;}
+.q-tag{display:flex;align-items:center;justify-content:center;border-right:2px solid #eb1000;}
+.q-tag span{font-size:1.1vw;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#eb1000;writing-mode:vertical-rl;transform:rotate(180deg);}
+.mc{background:#fff;border:1px solid #000;border-radius:0;padding:.4% .6%;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
+.mn{font-size:1.1vw;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#000;margin-bottom:.2em;flex-shrink:0;line-height:1;border-bottom:1.5px solid #eb1000;padding-bottom:.2em;}
+.cg{display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:1fr;gap:0;flex:1;min-height:0;align-content:stretch;}
+.dh{font-size:.88vw;color:#999;text-align:center;font-weight:600;display:flex;align-items:center;justify-content:center;}
+.dc{font-size:1.05vw;color:#000;text-align:center;border-radius:0;display:flex;align-items:center;justify-content:center;line-height:1;font-weight:400;padding:0;}
+.ev{border-radius:2px;font-size:.82vw;font-weight:700;text-align:center;display:flex;align-items:center;justify-content:center;padding:0 .1em;line-height:1;position:relative;cursor:default;}
+.ev::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:9px;font-weight:500;white-space:nowrap;padding:3px 7px;border-radius:3px;opacity:0;pointer-events:none;transition:opacity .15s;z-index:999;}
+.ev:hover::after{opacity:1;}
+.s2{grid-column:span 2;}.s3{grid-column:span 3;}.s4{grid-column:span 4;}.s5{grid-column:span 5;}
+.ev-bod   {background:rgba(55,138,221,0.14);border:.5px solid rgba(55,138,221,0.45);color:#042c53;}
+.ev-qfr   {background:rgba(255,255,255,0.7);border:.5px solid rgba(0,0,0,0.25);color:#111;}
+.ev-qbr   {background:rgba(127,119,221,0.16);border:.5px solid rgba(127,119,221,0.5);color:#26215c;}
+.ev-biz   {background:rgba(29,158,117,0.14);border:.5px solid rgba(29,158,117,0.45);color:#04342c;}
+.ev-earn  {background:rgba(235,16,0,0.35); border:.5px solid rgba(235,16,0,0.65);  color:#7a0000;}
+.ev-corp  {background:rgba(235,16,0,0.6);  border:.5px solid rgba(235,16,0,0.9);   color:#fff;}
+.ev-shut  {background:rgba(0,0,0,0.5);     border:.5px solid rgba(0,0,0,0.75);     color:#fff;}
+.ev-hol   {background:rgba(0,0,0,0.5);     border:.5px solid rgba(0,0,0,0.75);     color:#fff;}
+.ev-summit{background:rgba(235,16,0,0.6);  border:.5px solid rgba(235,16,0,0.9);   color:#fff;}
+.ev-max   {background:rgba(235,16,0,0.6);  border:.5px solid rgba(235,16,0,0.9);   color:#fff;}
+.ev-emp   {background:rgba(212,83,126,0.16);border:.5px solid rgba(212,83,126,0.5);color:#4b1528;}
 </style>
-</head>
-<body>
 
-<div class="nav">
-  <div>
-    <div class="nav-title">FY26 Key Business Dates</div>
-    <div class="nav-sub" id="qrange"></div>
-  </div>
-  <div class="nav-btns">
-    <button class="nav-btn" id="prev">&#8249;</button>
-    <button class="nav-btn" id="next">&#8250;</button>
-  </div>
-</div>
-
-<div id="cal"></div>
-
-<div class="footer">
-  <div class="legend">
-    <div class="li"><div class="ls" style="background:#27BB36"></div>Earnings call</div>
-    <div class="li"><div class="ls" style="background:#eb1000"></div>Adobe BoD</div>
-    <div class="li"><div class="ls" style="background:#7B5EA7"></div>QFR</div>
-    <div class="li"><div class="ls" style="background:#33C5E8"></div>QBR</div>
-    <div class="li"><div class="ls" style="background:#F69500"></div>Corp event</div>
-    <div class="li"><div class="ls" style="background:#E8609A"></div>Emp. Meeting / All Hands</div>
-    <div class="li"><div class="ls" style="background:#F0D000"></div>C&amp;P Biz Review</div>
-    <div class="li"><div class="ls" style="background:#C6C6C6"></div>Shutdown / Holiday</div>
-  </div>
-  <div class="note">* Many Q3 and Q4 dates are still to be scheduled. This calendar will be updated as dates are confirmed.</div>
-</div>
-
-<script>
-const events = {
-  "2025-12-04":{cls:"qbr",label:"QBR"},
-  "2025-12-08":{cls:"qfr",label:"QFR"},
-  "2025-12-10":{cls:"earnings",label:"Earnings Call"},
-  "2025-12-16":{cls:"corp",label:"CKO/SKO"},
-  "2025-12-17":{cls:"corp",label:"CKO/SKO"},
-  "2025-12-24":{cls:"shutdown",label:"Shutdown"},
-  "2025-12-25":{cls:"shutdown",label:"Shutdown"},
-  "2025-12-26":{cls:"shutdown",label:"Shutdown"},
-  "2025-12-29":{cls:"shutdown",label:"Shutdown"},
-  "2025-12-30":{cls:"shutdown",label:"Shutdown"},
-  "2025-12-31":{cls:"shutdown",label:"Shutdown"},
-  "2026-01-01":{cls:"shutdown",label:"Shutdown"},
-  "2026-01-13":{cls:"bizreview",label:"C&P Biz Review"},
-  "2026-01-14":{cls:"bod",label:"Adobe BoD"},
-  "2026-01-15":{cls:"bod",label:"Adobe BoD"},
-  "2026-01-19":{cls:"holiday",label:"Holiday"},
-  "2026-01-27":{cls:"allhands",label:"Emp. Meeting"},
-  "2026-02-16":{cls:"holiday",label:"Holiday"},
-  "2026-03-03":{cls:"bizreview",label:"C&P Biz Review"},
-  "2026-03-04":{cls:"qbr",label:"QBR"},
-  "2026-03-09":{cls:"qfr",label:"QFR"},
-  "2026-03-12":{cls:"earnings",label:"Earnings Call"},
-  "2026-03-16":{cls:"corp",label:"SLF"},
-  "2026-03-17":{cls:"allhands",label:"Emp. Meeting"},
-  "2026-03-20":{cls:"holiday",label:"Holiday"},
-  "2026-04-02":{cls:"allhands",label:"Emp. Meeting"},
-  "2026-04-07":{cls:"bod",label:"Adobe BoD"},
-  "2026-04-08":{cls:"bod",label:"Adobe BoD"},
-  "2026-04-09":{cls:"bizreview",label:"C&P Biz Review"},
-  "2026-04-20":{cls:"corp",label:"Summit"},
-  "2026-04-21":{cls:"corp",label:"Summit"},
-  "2026-04-22":{cls:"corp",label:"Summit"},
-  "2026-05-11":{cls:"corp",label:"SLF"},
-  "2026-05-12":{cls:"corp",label:"SLF"},
-  "2026-05-13":{cls:"corp",label:"SLF"},
-  "2026-05-25":{cls:"holiday",label:"Holiday"},
-  "2026-06-02":{cls:"bizreview",label:"C&P Biz Review"},
-  "2026-06-04":{cls:"qbr",label:"QBR"},
-  "2026-06-08":{cls:"qfr",label:"QFR"},
-  "2026-06-11":{cls:"earnings",label:"Earnings Call"},
-  "2026-06-16":{cls:"allhands",label:"Emp. Meeting"},
-  "2026-06-18":{cls:"bod",label:"Adobe BoD"},
-  "2026-06-19":{cls:"bod",label:"Adobe BoD"},
-  "2026-06-29":{cls:"shutdown",label:"Summer Shutdown"},
-  "2026-06-30":{cls:"shutdown",label:"Summer Shutdown"},
-  "2026-07-01":{cls:"shutdown",label:"Summer Shutdown"},
-  "2026-07-02":{cls:"shutdown",label:"Summer Shutdown"},
-  "2026-07-03":{cls:"shutdown",label:"Summer Shutdown"},
-  "2026-07-04":{cls:"holiday",label:"Holiday"},
-  "2026-08-21":{cls:"holiday",label:"Global Day Off"},
-  "2026-08-25":{cls:"bizreview",label:"C&P Biz Review"},
-  "2026-09-02":{cls:"qbr",label:"QBR"},
-  "2026-09-07":{cls:"holiday",label:"Holiday"},
-  "2026-09-08":{cls:"qfr",label:"QFR"},
-  "2026-09-10":{cls:"earnings",label:"Earnings Call"},
-  "2026-09-15":{cls:"allhands",label:"Emp. Meeting"},
-  "2026-10-13":{cls:"bizreview",label:"C&P Biz Review"},
-  "2026-10-30":{cls:"holiday",label:"Global Day Off"},
-  "2026-11-10":{cls:"corp",label:"Adobe MAX"},
-  "2026-11-11":{cls:"corp",label:"Adobe MAX"},
-  "2026-11-12":{cls:"corp",label:"Adobe MAX"},
-  "2026-11-26":{cls:"holiday",label:"Holiday"},
-  "2026-11-27":{cls:"holiday",label:"Holiday"},
-};
-
-const BG = {earnings:"#27BB36",bod:"#eb1000",qfr:"#7B5EA7",qbr:"#33C5E8",corp:"#F69500",allhands:"#E8609A",bizreview:"#F0D000",shutdown:"#C6C6C6",holiday:"#C6C6C6"};
-const MN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-
-const quarters = [
-  {label:"Q1",months:[{y:2025,m:11},{y:2026,m:0},{y:2026,m:1}]},
-  {label:"Q2",months:[{y:2026,m:2},{y:2026,m:3},{y:2026,m:4}]},
-  {label:"Q3",months:[{y:2026,m:5},{y:2026,m:6},{y:2026,m:7}]},
-  {label:"Q4",months:[{y:2026,m:8},{y:2026,m:9},{y:2026,m:10}]},
-];
-
-function dk(y,m,d){return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');}
-
-function buildMonth(y,m){
-  const dim = new Date(y,m+1,0).getDate();
-  const weekdays = [];
-  for(let d=1;d<=dim;d++){const dow=new Date(y,m,d).getDay();if(dow!==0&&dow!==6)weekdays.push(d);}
-  const firstCol = new Date(y,m,weekdays[0]).getDay()-1;
-  const cells = [...Array(firstCol).fill(null),...weekdays];
-  while(cells.length%5!==0) cells.push(null);
-
-  let rows = '';
-  for(let r=0;r<cells.length/5;r++){
-    let tds = '';
-    for(let c=0;c<5;c++){
-      const d=cells[r*5+c];
-      if(d===null){tds+=`<td><div class="day faded"></div></td>`;continue;}
-      const ev=events[dk(y,m,d)];
-      const cls=ev?` ev-${ev.cls}`:'';
-      tds+=`<td><div class="day${cls}">${d}</div></td>`;
-    }
-    rows+=`<tr>${tds}</tr>`;
-  }
-
-  const evGroups=[];
-  for(let d=1;d<=dim;d++){
-    const ev=events[dk(y,m,d)];
-    if(!ev)continue;
-    const prev=evGroups[evGroups.length-1];
-    if(prev&&prev.label===ev.label&&d===prev.end+1){prev.end=d;}
-    else evGroups.push({start:d,end:d,cls:ev.cls,label:ev.label});
-  }
-  const evHTML=evGroups.map(g=>{
-    const ds=g.start===g.end?`${g.start}`:`${g.start}–${g.end}`;
-    return `<div class="event"><div class="event-dot" style="background:${BG[g.cls]||'#ccc'}"></div><div class="event-text"><strong>${ds}</strong> — ${g.label}</div></div>`;
-  }).join('');
-
-  return `<div class="month">
-    <div class="banner"></div>
-    <div class="month-name">${MN[m]}</div>
-    <div class="cal-wrap">
-      <table class="cal">
-        <thead><tr><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
+<div class="slide">
+  <div class="inner">
+    <div class="top-bar"><span class="main-title">FY26 Key Dates</span></div>
+    <div class="legend">
+      <div class="li"><div class="ld ev-bod"></div>Adobe BoD</div>
+      <div class="li"><div class="ld ev-earn"></div>Earnings Call</div>
+      <div class="li"><div class="ld ev-qfr"></div>C&P QFR</div>
+      <div class="li"><div class="ld ev-qbr"></div>C&P QBR</div>
+      <div class="li"><div class="ld ev-biz"></div>C&P Business Review</div>
+      <div class="li"><div class="ld ev-corp"></div>Corporate Event</div>
+      <div class="li"><div class="ld ev-shut"></div>Holiday / Shutdown</div>
+      <div class="li"><div class="ld ev-emp"></div>Employee Mtg / All Hands</div>
     </div>
-    <div class="events">${evHTML}</div>
-  </div>`;
-}
 
-const cal = document.getElementById('cal');
-quarters.forEach((q,i)=>{
-  const html = q.months.map(({y,m})=>buildMonth(y,m)).join('');
-  const div = document.createElement('div');
-  div.className = 'quarter'+(i===0?' active':'');
-  div.id = 'q'+i;
-  div.innerHTML = html;
-  cal.appendChild(div);
-});
+    <div class="quarters">
+      <div class="q-row">
+        <div class="q-tag"><span>Q1</span></div>
+        <div class="mc"><div class="mn">December</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc">1</div><div class="dc">2</div><div class="dc">3</div><div class="ev ev-qbr" data-tip="C&P QBR">4</div><div class="dc">5</div>
+          <div class="ev ev-qfr" data-tip="C&P QFR">8</div><div class="dc">9</div><div class="ev ev-earn" data-tip="Earnings Call">10</div><div class="dc">11</div><div class="dc">12</div>
+          <div class="dc">15</div><div class="ev ev-corp s2" data-tip="Corporate Event">CKO / SKO</div><div class="dc">18</div><div class="dc">19</div>
+          <div class="dc">22</div><div class="dc">23</div><div class="ev ev-shut s3" data-tip="Holiday / Shutdown">Shutdown</div>
+          <div class="dc"></div><div class="dc"></div><div class="dc"></div><div class="dc"></div><div class="dc"></div>
+        </div></div>
+        <div class="mc"><div class="mn">January</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="ev ev-shut s4" data-tip="Holiday / Shutdown">Shutdown</div><div class="dc">2</div>
+          <div class="dc">5</div><div class="dc">6</div><div class="dc">7</div><div class="dc">8</div><div class="dc">9</div>
+          <div class="dc">12</div><div class="ev ev-biz" data-tip="C&P Business Review">13</div><div class="ev ev-bod" data-tip="Adobe BoD">14</div><div class="ev ev-bod" data-tip="Adobe BoD">15</div><div class="dc">16</div>
+          <div class="ev ev-hol" data-tip="Holiday / Shutdown">19</div><div class="dc">20</div><div class="dc">21</div><div class="dc">22</div><div class="dc">23</div>
+          <div class="dc">26</div><div class="ev ev-emp" data-tip="Employee Mtg / All Hands">27</div><div class="dc">28</div><div class="dc">29</div><div class="dc">30</div>
+        </div></div>
+        <div class="mc"><div class="mn">February</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc">2</div><div class="dc">3</div><div class="dc">4</div><div class="dc">5</div><div class="dc">6</div>
+          <div class="dc">9</div><div class="dc">10</div><div class="dc">11</div><div class="dc">12</div><div class="dc">13</div>
+          <div class="ev ev-hol" data-tip="Holiday / Shutdown">16</div><div class="dc">17</div><div class="dc">18</div><div class="dc">19</div><div class="dc">20</div>
+          <div class="dc">23</div><div class="dc">24</div><div class="dc">25</div><div class="dc">26</div><div class="dc">27</div>
+          <div class="dc"></div><div class="dc"></div><div class="dc"></div><div class="dc"></div><div class="dc"></div>
+        </div></div>
+      </div>
 
-const now = new Date();
-let qIdx = 0;
-quarters.forEach((q,i)=>{
-  const start=new Date(q.months[0].y,q.months[0].m,1);
-  const end=new Date(q.months[2].y,q.months[2].m+1,0);
-  if(now>=start&&now<=end) qIdx=i;
-});
+      <div class="q-row">
+        <div class="q-tag"><span>Q2</span></div>
+        <div class="mc"><div class="mn">March</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc">2</div><div class="ev ev-biz" data-tip="C&P Business Review">3</div><div class="ev ev-qbr" data-tip="C&P QBR">4</div><div class="dc">5</div><div class="dc">6</div>
+          <div class="ev ev-qfr" data-tip="C&P QFR">9</div><div class="dc">10</div><div class="dc">11</div><div class="ev ev-earn" data-tip="Earnings Call">12</div><div class="dc">13</div>
+          <div class="ev ev-corp" data-tip="Corporate Event">SLF</div><div class="ev ev-emp" data-tip="Employee Mtg / All Hands">17</div><div class="dc">18</div><div class="dc">19</div><div class="ev ev-hol" data-tip="Holiday / Shutdown">20</div>
+          <div class="dc">23</div><div class="dc">24</div><div class="dc">25</div><div class="dc">26</div><div class="dc">27</div>
+          <div class="dc">30</div><div class="dc">31</div><div class="dc"></div><div class="dc"></div><div class="dc"></div>
+        </div></div>
+        <div class="mc"><div class="mn">April</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc"></div><div class="dc">1</div><div class="dc">2</div><div class="dc">3</div><div class="dc">4</div>
+          <div class="dc">6</div><div class="dc">7</div><div class="dc">8</div><div class="dc">9</div><div class="dc">10</div>
+          <div class="dc">13</div><div class="ev ev-bod" data-tip="Adobe BoD">14</div><div class="ev ev-bod" data-tip="Adobe BoD">15</div><div class="dc">16</div><div class="dc">17</div>
+          <div class="ev ev-summit s3" data-tip="Corporate Event">Adobe Summit</div><div class="dc">23</div><div class="dc">24</div>
+          <div class="dc">27</div><div class="dc">28</div><div class="dc">29</div><div class="dc">30</div><div class="dc"></div>
+        </div></div>
+        <div class="mc"><div class="mn">May</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc"></div><div class="dc"></div><div class="dc"></div><div class="dc">1</div><div class="dc">2</div>
+          <div class="dc">4</div><div class="dc">5</div><div class="dc">6</div><div class="dc">7</div><div class="dc">8</div>
+          <div class="ev ev-corp s3" data-tip="Corporate Event">SLF</div><div class="dc">14</div><div class="dc">15</div>
+          <div class="dc">18</div><div class="dc">19</div><div class="dc">20</div><div class="dc">21</div><div class="dc">22</div>
+          <div class="ev ev-hol" data-tip="Holiday / Shutdown">25</div><div class="dc">26</div><div class="dc">27</div><div class="dc">28</div><div class="dc">29</div>
+        </div></div>
+      </div>
 
-function setQ(i){
-  document.querySelectorAll('.quarter').forEach(el=>el.classList.remove('active'));
-  document.getElementById('q'+i).classList.add('active');
-  const q=quarters[i];
-  document.getElementById('qrange').textContent=`${q.label} · ${MN[q.months[0].m]} ${q.months[0].y} – ${MN[q.months[2].m]} ${q.months[2].y}`;
-}
+      <div class="q-row">
+        <div class="q-tag"><span>Q3</span></div>
+        <div class="mc"><div class="mn">June</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc">1</div><div class="ev ev-biz" data-tip="C&P Business Review">2</div><div class="ev ev-qbr" data-tip="C&P QBR">3</div><div class="dc">4</div><div class="dc">5</div>
+          <div class="ev ev-qfr" data-tip="C&P QFR">8</div><div class="dc">9</div><div class="dc">10</div><div class="ev ev-earn" data-tip="Earnings Call">11</div><div class="dc">12</div>
+          <div class="dc">15</div><div class="ev ev-emp" data-tip="Employee Mtg / All Hands">16</div><div class="dc">17</div><div class="ev ev-bod" data-tip="Adobe BoD">18</div><div class="ev ev-bod" data-tip="Adobe BoD">19</div>
+          <div class="dc">22</div><div class="dc">23</div><div class="dc">24</div><div class="dc">25</div><div class="dc">26</div>
+          <div class="ev ev-shut s5" data-tip="Holiday / Shutdown">Summer Shutdown</div>
+        </div></div>
+        <div class="mc"><div class="mn">July</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="ev ev-shut s5" data-tip="Holiday / Shutdown">Summer Shutdown</div>
+          <div class="dc">7</div><div class="dc">8</div><div class="dc">9</div><div class="dc">10</div><div class="dc">11</div>
+          <div class="dc">14</div><div class="dc">15</div><div class="dc">16</div><div class="dc">17</div><div class="dc">18</div>
+          <div class="dc">21</div><div class="dc">22</div><div class="dc">23</div><div class="dc">24</div><div class="dc">25</div>
+          <div class="dc">28</div><div class="dc">29</div><div class="dc">30</div><div class="dc">31</div><div class="dc"></div>
+        </div></div>
+        <div class="mc"><div class="mn">August</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc"></div><div class="dc"></div><div class="dc"></div><div class="dc"></div><div class="dc">1</div>
+          <div class="dc">4</div><div class="dc">5</div><div class="dc">6</div><div class="dc">7</div><div class="dc">8</div>
+          <div class="dc">11</div><div class="dc">12</div><div class="dc">13</div><div class="dc">14</div><div class="dc">15</div>
+          <div class="dc">18</div><div class="dc">19</div><div class="dc">20</div><div class="ev ev-hol" data-tip="Holiday / Shutdown">21</div><div class="dc">22</div>
+          <div class="ev ev-biz" data-tip="C&P Business Review">25</div><div class="dc">26</div><div class="dc">27</div><div class="dc">28</div><div class="dc">29</div>
+        </div></div>
+      </div>
 
-setQ(qIdx);
-document.getElementById('prev').onclick=()=>{if(qIdx>0){qIdx--;setQ(qIdx);}};
-document.getElementById('next').onclick=()=>{if(qIdx<3){qIdx++;setQ(qIdx);}};
-</script>
-</body>
-</html>
+      <div class="q-row">
+        <div class="q-tag"><span>Q4</span></div>
+        <div class="mc"><div class="mn">September</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc">1</div><div class="ev ev-qbr" data-tip="C&P QBR">2</div><div class="dc">3</div><div class="dc">4</div><div class="dc">5</div>
+          <div class="ev ev-hol" data-tip="Holiday / Shutdown">7</div><div class="ev ev-qfr" data-tip="C&P QFR">8</div><div class="dc">9</div><div class="ev ev-earn" data-tip="Earnings Call">10</div><div class="dc">11</div>
+          <div class="dc">14</div><div class="ev ev-emp" data-tip="Employee Mtg / All Hands">15</div><div class="dc">16</div><div class="dc">17</div><div class="dc">18</div>
+          <div class="dc">21</div><div class="dc">22</div><div class="dc">23</div><div class="dc">24</div><div class="dc">25</div>
+          <div class="dc">28</div><div class="dc">29</div><div class="dc">30</div><div class="dc"></div><div class="dc"></div>
+        </div></div>
+        <div class="mc"><div class="mn">October</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc"></div><div class="dc"></div><div class="dc">1</div><div class="dc">2</div><div class="dc">3</div>
+          <div class="dc">6</div><div class="dc">7</div><div class="dc">8</div><div class="dc">9</div><div class="dc">10</div>
+          <div class="ev ev-biz" data-tip="C&P Business Review">13</div><div class="dc">14</div><div class="dc">15</div><div class="dc">16</div><div class="dc">17</div>
+          <div class="dc">20</div><div class="dc">21</div><div class="dc">22</div><div class="dc">23</div><div class="dc">24</div>
+          <div class="dc">27</div><div class="dc">28</div><div class="dc">29</div><div class="ev ev-hol" data-tip="Holiday / Shutdown">30</div><div class="dc">31</div>
+        </div></div>
+        <div class="mc"><div class="mn">November</div><div class="cg">
+          <div class="dh">M</div><div class="dh">T</div><div class="dh">W</div><div class="dh">T</div><div class="dh">F</div>
+          <div class="dc"></div><div class="dc"></div><div class="dc"></div><div class="dc"></div><div class="dc"></div>
+          <div class="dc">3</div><div class="dc">4</div><div class="dc">5</div><div class="dc">6</div><div class="dc">7</div>
+          <div class="ev ev-max s3" data-tip="Corporate Event">Adobe MAX</div><div class="dc">13</div><div class="dc">14</div>
+          <div class="dc">17</div><div class="dc">18</div><div class="dc">19</div><div class="dc">20</div><div class="dc">21</div>
+          <div class="dc">24</div><div class="dc">25</div><div class="ev ev-hol" data-tip="Holiday / Shutdown">26</div><div class="ev ev-hol" data-tip="Holiday / Shutdown">27</div><div class="dc">28</div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
